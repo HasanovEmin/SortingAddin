@@ -13,7 +13,7 @@ namespace SortingAddin
         TypeFilter filter;
         List<Item> items;
         List<Item> sortedList;
-        DbElementType type;
+        DbElementType type;         //Will be used for manipulating position
         public SortCmd()
         {
             base.Key = "Emin.SortingCmd";
@@ -60,10 +60,13 @@ namespace SortingAddin
 
         private void ReplaceItems()
         {
+            //creating pointer to first item by special type
             DbElement targetElement = ce.FirstMember(type);
             foreach (Item item in sortedList)
             {
-                if (sortedList[0] == item)
+                //if this item is first in collection, then we need to past it before current first item by type
+                //then we need to replace target pointer
+                if (item == sortedList[0])
                 {
                     item.Element.InsertBefore(targetElement);
                     targetElement = item.Element;
@@ -75,13 +78,17 @@ namespace SortingAddin
                 }
             }
 
-            MessageBox.Show($"{ce.GetAsString(DbAttributeInstance.NAME)} sorted");
+            MessageBox.Show($"{ce.GetAsString(DbAttributeInstance.NAMN)} sorted");
         }
 
+        /// <summary>
+        /// Sorts with LINQ
+        /// </summary>
         private void Sort()
         {
             sortedList = items.OrderBy(x => x.P1bore).ThenBy(x => x.P2bore).ThenBy(x =>x.P3bore).ThenBy(x => x.P4bore).ToList();
         }
+
 
         private void CollectComponents()
         {
