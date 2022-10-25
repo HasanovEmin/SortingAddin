@@ -23,6 +23,17 @@ namespace SortingAddin
 
         public override void Execute()
         {
+
+            SetTypeAndFilter();
+            CollectComponents();
+            Sort();
+            ReplaceItems();
+            
+            base.Execute();
+        }
+
+        private void SetTypeAndFilter()
+        {
             items = new List<Item>();
             ce = CurrentElement.Element;
             if (ce.GetActualType() == DbElementTypeInstance.PRTELE)
@@ -38,7 +49,7 @@ namespace SortingAddin
                         MessageBox.Show("PRTELE can contain only GPARTs");
                         return;
                     }
-                }               
+                }
             }
             else if (ce.GetActualType() == DbElementTypeInstance.CATEGORY)
             {
@@ -50,12 +61,6 @@ namespace SortingAddin
                 MessageBox.Show("Can run only under PRTELE and CATE");
                 return;
             }
-
-            CollectComponents();
-            Sort();
-            ReplaceItems();
-            
-            base.Execute();
         }
 
         private void ReplaceItems()
