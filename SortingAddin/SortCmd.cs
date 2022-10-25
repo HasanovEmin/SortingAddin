@@ -30,8 +30,8 @@ namespace SortingAddin
                 filter = new TypeFilter(DbElementTypeInstance.GPART);
                 type = DbElementTypeInstance.GPART;
 
-                DbElement[] col = ce.Members();
-                foreach (DbElement ele in col)
+                DbElement[] collection = ce.Members();
+                foreach (DbElement ele in collection)
                 {
                     if (ele.GetActualType() != DbElementTypeInstance.GPART)
                     {
@@ -103,15 +103,21 @@ namespace SortingAddin
                 qualifierP3.Add(3);
                 DbQualifier qualifierP4 = new DbQualifier();
                 qualifierP4.Add(4);
+
+                double p1boreDouble = 0;
+                double p2boreDouble = 0;
                 double p3boreDouble = 0;
                 double p4boreDouble = 0;
+
+                element.GetValidDouble(DbAttributeInstance.PPBO, qualifierP1, ref p1boreDouble);
+                element.GetValidDouble(DbAttributeInstance.PPBO, qualifierP2, ref p2boreDouble);
                 element.GetValidDouble(DbAttributeInstance.PPBO, qualifierP3, ref p3boreDouble);
                 element.GetValidDouble(DbAttributeInstance.PPBO, qualifierP4, ref p4boreDouble);
                 items.Add(new Item()
                 {
                     Element = element,
-                    P1bore = element.GetDouble(DbAttributeInstance.PPBO, qualifierP1),
-                    P2bore = element.GetDouble(DbAttributeInstance.PPBO, qualifierP2),
+                    P1bore = p1boreDouble,
+                    P2bore = p2boreDouble,
                     P3bore = p3boreDouble,
                     P4bore = p3boreDouble,
                 });       
